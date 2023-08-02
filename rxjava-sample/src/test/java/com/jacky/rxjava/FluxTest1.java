@@ -3,6 +3,7 @@ package com.jacky.rxjava;
 import org.junit.Test;
 import reactor.core.publisher.Flux;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class FluxTest1 {
 
     @Test
     public void fluxSubscribe() {
-        Flux<Integer> range = Flux.range(4, 5);
+        Flux<Integer> range = Flux.range(4, 5).delayElements(Duration.ofSeconds(1));
         range.subscribe(
                 System.out::println, // consumer是处理每一次循环的事件,这里是打印输出循环的元素
                 err -> System.out.println("error: " + err), // errorConsumer 是当发生错误事件时才会触发

@@ -7,7 +7,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 
 //@EnableWebFlux
 @SpringBootApplication
-@EnableR2dbcRepositories
+//@EnableR2dbcRepositories
 public class ReactiveApp {
 
     public static void main(String[] args) {

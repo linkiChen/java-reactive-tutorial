@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 @RequestMapping("userApp")
 public class ReactiveUserAppController {
 
-    @Resource
+//    @Resource
     private ReactiveUserAppRepository userAppRepository;
 
     @GetMapping("/{id}")

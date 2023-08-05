@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 @Configuration
 public class UserAppRouteFunction {
 
-    @Resource
+//    @Resource
     private ReactiveUserAppRepository userAppRepository;
 
 }

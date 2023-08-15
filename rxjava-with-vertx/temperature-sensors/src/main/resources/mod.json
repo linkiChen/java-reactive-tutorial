@@ -1,0 +1,11 @@
+{
+  "description": "temperature sensors",
+  "author": "Jacky Chan",
+  "developers": [
+    "Jacky Chan"
+  ],
+  "keywords": [
+    "logback"
+  ],
+  "auto-redeploy": false
+}

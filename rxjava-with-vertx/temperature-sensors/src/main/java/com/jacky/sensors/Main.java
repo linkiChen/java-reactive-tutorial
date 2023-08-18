@@ -12,8 +12,8 @@ public class Main {
 
     public static void main(String[] args) {
         Vertx vertx = Vertx.vertx();
-//        vertx.deployVerticle(new SensorVerticle());
-        // 部署三个SensorVerticle实例 todo 不知道为这什么这样没成功
-        vertx.deployVerticle("SensorVerticle",new DeploymentOptions().setInstances(3));
+        vertx.deployVerticle(new SensorVerticle());
+        // 部署三个SensorVerticle实例
+//        vertx.deployVerticle(SensorVerticle.class.getName(),new DeploymentOptions().setInstances(3));
     }
 }

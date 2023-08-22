@@ -14,7 +14,7 @@ public class OrderController {
 
     private final OrderRepository orders;
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<Flux<Order>> all() {
         return ResponseEntity.ok().body(this.orders.findAll());
     }

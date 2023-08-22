@@ -17,18 +17,17 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import javax.annotation.PostConstruct;
 
 @Configuration
-@EnableR2dbcRepositories(databaseClientRef = "customerDbClient")
+@EnableR2dbcRepositories(basePackages = "com.jacky.r2dbc.customers",entityOperationsRef = "mySqlR2dbcEntityOperations")
 public class CustomerConfig {
 
 
     @Bean
-    @Qualifier(value = "customersConnectionFactory")
     public ConnectionFactory customersConnectionFactory() {
-        return ConnectionFactories.get("r2dbc:mysql://root:root@localhost:3306/customers");
+        return ConnectionFactories.get("r2dbc:mysql://root:root@192.168.56.105:3306/customers");
     }
 
     @Bean
-    public R2dbcEntityOperations customersEntityTemplate(@Qualifier("customersConnectionFactory") ConnectionFactory connectionFactory) {
+    public R2dbcEntityTemplate mySqlR2dbcEntityOperations(@Qualifier("customersConnectionFactory") ConnectionFactory connectionFactory) {
 
         DefaultReactiveDataAccessStrategy strategy = new DefaultReactiveDataAccessStrategy(MySqlDialect.INSTANCE);
         DatabaseClient databaseClient = DatabaseClient.builder()
@@ -40,12 +39,12 @@ public class CustomerConfig {
         return new R2dbcEntityTemplate(databaseClient, strategy);
     }
 
-    @Bean(name = "customerDbClient")
+//    @Bean(name = "customerDbClient")
     public DatabaseClient dbClient() {
         return DatabaseClient.create(customersConnectionFactory());
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void initialize() {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.addScripts(

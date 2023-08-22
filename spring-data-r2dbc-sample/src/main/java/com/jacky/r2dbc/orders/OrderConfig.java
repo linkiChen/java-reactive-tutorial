@@ -17,18 +17,18 @@ import javax.annotation.PostConstruct;
 //https://github.com/hantsy/spring-puzzles
 
 @Configuration
-@EnableR2dbcRepositories(databaseClientRef = "orderDbClient")
+@EnableR2dbcRepositories(basePackages = "com.jacky.r2dbc.orders", entityOperationsRef = "pgSqlR2dbcEntityOperations")
 public class OrderConfig {
 
-    @Bean()
+    @Bean
     @Qualifier("ordersConnectionFactory")
     public ConnectionFactory ordersConnectionFactory() {
-        return ConnectionFactories.get("r2dbc:postgres://postgres:postgres@localhost:5432/orders");
+        return ConnectionFactories.get("r2dbc:postgres://root:password@192.168.56.105:5432/orders");
     }
 
 
     @Bean
-    public R2dbcEntityOperations ordersEntityTemplate(@Qualifier("ordersConnectionFactory") ConnectionFactory connectionFactory) {
+    public R2dbcEntityTemplate pgSqlR2dbcEntityOperations(@Qualifier("ordersConnectionFactory") ConnectionFactory connectionFactory) {
 
         DefaultReactiveDataAccessStrategy strategy = new DefaultReactiveDataAccessStrategy(PostgresDialect.INSTANCE);
         DatabaseClient databaseClient = DatabaseClient.builder()
@@ -41,13 +41,13 @@ public class OrderConfig {
     }
 
 
-    @Bean(name = "orderDbClient")
+//    @Bean(name = "orderDbClient")
     public DatabaseClient dbClient() {
         return DatabaseClient.create(ordersConnectionFactory());
     }
 
 
-    @PostConstruct
+//    @PostConstruct
     public void initialize() {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.addScripts(
